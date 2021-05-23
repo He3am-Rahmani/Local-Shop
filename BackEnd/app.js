@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 require('dotenv').config()
 
-const productRoutes = require("./routes/product-routes");
+const Routes = require("./routes/routes");
 
 const app = express();
 app.use(express.json())
@@ -15,11 +15,9 @@ app.use((req, res, next) => {
 });
 
 
-console.log(process.env.API_KEY)
 
- 
 
-app.use("/api", productRoutes);
+app.use("/api", Routes);
 
 mongoose
   .connect(`${process.env.DB}://${process.env.DOMAIN}:${process.env.PORT}/Products`)
