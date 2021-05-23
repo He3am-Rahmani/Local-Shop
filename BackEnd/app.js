@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require('dotenv').config()
 
 const productRoutes = require("./routes/product-routes");
 
 const app = express();
+app.use(express.json())
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -12,10 +14,15 @@ app.use((req, res, next) => {
   next();
 });
 
+
+console.log(process.env.API_KEY)
+
+ 
+
 app.use("/api", productRoutes);
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/Products")
+  .connect(`${process.env.DB}://${process.env.DOMAIN}:${process.env.PORT}/Products`)
   .then(() => {
     app.listen(8000);
   })

@@ -16,5 +16,6 @@ const getProduct = async (req, res, next) => {
   res.json(product);
 };
 
+
 exports.getAllProducts = getAllProducts;
 exports.getProduct = getProduct;
