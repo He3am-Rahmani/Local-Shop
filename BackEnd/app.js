@@ -14,8 +14,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
+console.log(Date.now().toString())
 
 app.use("/api", Routes);
 

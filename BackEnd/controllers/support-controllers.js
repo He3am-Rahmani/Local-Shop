@@ -1,20 +1,20 @@
-const TokenModels = require("../models/TokenModels");
+const SupportTicketModels = require("../models/TicketModels")
 
-const getTokens = async (req, res, next) => {
+const getSupportTickets = async (req, res, next) => {
   if (req.params.key === process.env.API_KEY) {
-    const tokens = await TokenModels.find({});
+    const SupportTickets = await SupportTicketModels.find({});
 
     res.json({
       message: { message: "Everything is Alright", type: "success" },
-      data: tokens,
+      data: SupportTickets,
     });
   } else {
     res.json({ message: { message: "failed", type: "failed" } });
   }
 };
-const createToken = async (req, res, next) => {
+const createSupportTicket = async (req, res, next) => {
   if (req.params.key === process.env.API_KEY) {
-    if (await TokenModels.findOne({ email: req.body.email })) {
+    if (await SupportTicketModels.findOne({ email: req.body.email })) {
       res.json({
         message: {
           message:
@@ -23,15 +23,15 @@ const createToken = async (req, res, next) => {
         },
       });
     } else {
-      const newToken = new TokenModels({
+      const newSupportTicket = new SupportTicketModels({
         name: req.body.name,
         email: req.body.email,
         subject: req.body.subject,
         message: req.body.message,
       });
 
-     await newToken.save();
-      res.json({ message: { message: "Token Created", type: "success" } });
+     await newSupportTicket.save();
+      res.json({ message: { message: "SupportTicket Created", type: "success" } });
     }
   } else {
     res.json({
@@ -42,16 +42,16 @@ const createToken = async (req, res, next) => {
     });
   }
 };
-const deleteToken = async (req, res, next) => {
+const deleteSupportTicket = async (req, res, next) => {
   if (req.params.key === process.env.API_KEY) {
-    await TokenModels.findByIdAndDelete(req.body.id);
-    const allTokens = await TokenModels.find({});
+    await SupportTicketModels.findByIdAndDelete(req.body.id);
+    const allSupportTickets = await SupportTicketModels.find({});
     res.json({
       message: {
-        message: `Removed From Token List`,
+        message: `Removed From Support Ticket List`,
         type: "success",
       },
-      data: { data: allTokens },
+      data: { data: allSupportTickets },
     });
   } else {
     res.json({
@@ -63,6 +63,6 @@ const deleteToken = async (req, res, next) => {
   }
 };
 
-exports.getTokens = getTokens;
-exports.createToken = createToken;
-exports.deleteToken = deleteToken;
+exports.getSupportTickets = getSupportTickets;
+exports.createSupportTicket = createSupportTicket;
+exports.deleteSupportTicket = deleteSupportTicket;
