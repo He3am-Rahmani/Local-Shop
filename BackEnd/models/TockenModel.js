@@ -7,7 +7,7 @@ const tockenSchema = new Schema({
   isValid: { defaultStatus:true,type: Boolean, required: true },
   for:{type:Object ,required:true},
   createdDate:{type:Date , required:true},
-  usedDate:{type:Date}
+  usedIn:{type:Date}
 });
 
 module.exports = mongoose.model("tocken", tockenSchema);
