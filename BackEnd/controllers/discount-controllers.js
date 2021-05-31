@@ -46,13 +46,14 @@ const createDisCode = async (req, res, next) => {
       res.json({ message: { message:'Operation Failure We Have an Active Discount Code With This Name' ,type:"failed"} });
     } else {
       const NewDiscountCode = new DiscountModel({
+        key:req.body.key,
         name: req.body.name,
         value: req.body.value,
       });
 
-      const dises = await DiscountModel.find({})
-
+      
       await NewDiscountCode.save();
+      const dises = await DiscountModel.find({})
       res.json({
         message: {
           message: "Discount Code Created You Can Publish It Now",

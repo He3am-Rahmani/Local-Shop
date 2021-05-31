@@ -36,6 +36,7 @@ const getTockenByUrl = async (req, res, next) => {
           data: admin,
           tocken: tocken,
         });
+        // await tocken.update({ isValid: false, usedIn: Date.now().toString() });
       } else {
         res.json({
           message: {
@@ -67,7 +68,6 @@ const getTockenByUrl = async (req, res, next) => {
 const setTockenExpire = async (req, res, next) => {
 if (req.params.url) {
      await TockenModel.findOneAndUpdate({ url: req.params.url },{ isValid: false, usedIn: Date.now().toString() });
-    // await tocken.update({ isValid: false, usedIn: Date.now().toString() });
     res.json({ message: { message: "Tocken expired", type: "success" }});
  } else {
   res.json({ message: { message: "Failed", type: "failed" } });
