@@ -12,7 +12,7 @@ const loginAdmin = async (req, res, next) => {
   await res.json({ message: "Ok", data: admin });
 };
 const getAllAdmins = async (req, res, next) => {
-  if (req.params.key === process.env.API_KEY) {
+  if (req.body.key === process.env.API_KEY) {
     let Admins;
     Admins = await AdminModel.find({});
 
@@ -36,14 +36,10 @@ const getAdminById = async (req, res, next) => {
     })
   }
 
-
-
-
-
 };
 
 const deleteAdmin = async (req, res, next) => {
-  if (req.params.key === process.env.API_KEY) {
+  if (req.body.key === process.env.API_KEY) {
     const admin = await AdminModel.findOne({ userName: req.body.userName });
     if (admin) {
       await AdminModel.deleteOne({ userName: req.body.userName });
@@ -66,8 +62,9 @@ const deleteAdmin = async (req, res, next) => {
   }
 };
 
+
 const createAdmin = async(req, res, next) => {
-  if (req.params.key === process.env.API_KEY) {
+  if (req.body.key === process.env.API_KEY) {
     if (await AdminModel.findOne({ userName: req.body.userName })) {
       res.json({
         message: {

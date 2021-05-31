@@ -1,7 +1,7 @@
 const SupportTicketModels = require("../models/TicketModels")
 
 const getSupportTickets = async (req, res, next) => {
-  if (req.params.key === process.env.API_KEY) {
+  if (req.body.key === process.env.API_KEY) {
     const SupportTickets = await SupportTicketModels.find({});
 
     res.json({
@@ -13,7 +13,7 @@ const getSupportTickets = async (req, res, next) => {
   }
 };
 const createSupportTicket = async (req, res, next) => {
-  if (req.params.key === process.env.API_KEY) {
+  if (req.body.key === process.env.API_KEY) {
     if (await SupportTicketModels.findOne({ email: req.body.email })) {
       res.json({
         message: {
@@ -43,7 +43,7 @@ const createSupportTicket = async (req, res, next) => {
   }
 };
 const deleteSupportTicket = async (req, res, next) => {
-  if (req.params.key === process.env.API_KEY) {
+  if (req.body.key === process.env.API_KEY) {
     await SupportTicketModels.findByIdAndDelete(req.body.id);
     const allSupportTickets = await SupportTicketModels.find({});
     res.json({

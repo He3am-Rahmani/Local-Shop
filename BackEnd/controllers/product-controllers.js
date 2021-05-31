@@ -10,7 +10,7 @@ const getAllProducts = async (req, res, next) => {
   await res.json(data);
 };
 const deleteProduct = async (req, res, next) => {
-  if (req.params.key === process.env.API_KEY) {
+  if (req.body.key === process.env.API_KEY) {
     const existed = await Products.findOne({ name: req.body.name });
     if (existed) {
       await Products.deleteOne({ name: req.body.name });
@@ -37,7 +37,7 @@ const deleteProduct = async (req, res, next) => {
 };
 
 const createProduct = async (req, res, next) => {
-  if (req.params.key === process.env.API_KEY) {
+  if (req.body.key === process.env.API_KEY) {
     if (await Products.findOne({ name: req.body.name })) {
       res.json({
         message: {
