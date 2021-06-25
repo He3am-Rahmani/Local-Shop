@@ -28,5 +28,6 @@ router.post("/discount/remove", discountControllers.delDis);
 router.post("/tocken/new/", tockenControllers.createNewTocken);
 router.post("/tocken/get-admin/", tockenControllers.getTockenByUrl);
 router.put("/tocken/used/:url", tockenControllers.setTockenExpire);
+router.put("/products/update/", productControllers.updateProduct);
 
 module.exports = router;

@@ -41,8 +41,7 @@ const createProduct = async (req, res, next) => {
     if (await Products.findOne({ name: req.body.name })) {
       res.json({
         message: {
-          message:
-            "Operation Failure We Have an Product With This Name",
+          message: "Operation Failure We Have an Product With This Name",
           type: "failed",
         },
       });
@@ -68,6 +67,34 @@ const createProduct = async (req, res, next) => {
   }
 };
 
+const updateProduct = async (req, res, next) => {
+  if (req.body.key === process.env.API_KEY) {
+    // const foundedProduct = await Products.findById(req.body.prodId);
+
+    // if (foundedProduct) {
+    // } else {
+    //   res.json({ message: "not founded" });
+    // }
+    await Products.findByIdAndUpdate(req.body.prodId, {
+      name: req.body.name,
+      price: req.body.price,
+      image: req.body.image,
+      description: req.body.description,
+    });
+    res.json({
+      message: { message: "Product Updated Successfully", type: "success" },
+      // data: foundedProduct,
+    });
+  } else {
+    res.json({
+      message: {
+        message: "key is not correct your access denied, operation failur",
+        type: "failed",
+      },
+    });
+  }
+};
+
 const getProduct = async (req, res, next) => {
   const product = await Products.findById(req.params.id);
 
@@ -78,3 +105,4 @@ exports.getAllProducts = getAllProducts;
 exports.getProduct = getProduct;
 exports.deleteProduct = deleteProduct;
 exports.createProduct = createProduct;
+exports.updateProduct = updateProduct;
