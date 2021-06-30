@@ -66,12 +66,15 @@ const getTockenByUrl = async (req, res, next) => {
 };
 
 const setTockenExpire = async (req, res, next) => {
-if (req.params.url) {
-     await TockenModel.findOneAndUpdate({ url: req.params.url },{ isValid: false, usedIn: Date.now().toString() });
-    res.json({ message: { message: "Tocken expired", type: "success" }});
- } else {
-  res.json({ message: { message: "Failed", type: "failed" } });
- }
+  if (req.params.url) {
+    await TockenModel.findOneAndUpdate(
+      { url: req.params.url },
+      { isValid: false, usedIn: Date.now().toString() }
+    );
+    res.json({ message: { message: "Tocken expired successfully", type: "success" } });
+  } else {
+    res.json({ message: { message: "Failed", type: "failed" } });
+  }
 };
 
 exports.setTockenExpire = setTockenExpire;
