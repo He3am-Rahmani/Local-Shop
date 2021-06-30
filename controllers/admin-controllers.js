@@ -1,4 +1,3 @@
-const Mongoose = require("mongoose");
 const AdminModel = require("../models/AdminModels");
 
 const loginAdmin = async (req, res, next) => {
@@ -9,7 +8,17 @@ const loginAdmin = async (req, res, next) => {
 
   admin = await AdminModel.findOne({ userName: userName, password: password });
 
-  await res.json({ message: "Ok", data: admin });
+  if (admin) {
+    res.json({
+      message: "Ok",
+      data: { role: admin.role, id: admin.id, userName: admin.userName },
+    });
+  } else {
+    res.json({
+      message: "Not Valid Data",
+      type: "failed",
+    });
+  }
 };
 const getAllAdmins = async (req, res, next) => {
   if (req.body.key === process.env.API_KEY) {
@@ -47,20 +56,22 @@ const deleteAdmin = async (req, res, next) => {
         (controllerAdmin.role === "Head Admin" && admin.role === "Admin") ||
         controllerAdmin.role === "Senior Admin"
       ) {
-       if(controllerAdmin.userName !== admin.userName){ await AdminModel.deleteOne({ userName: req.body.userName });
-        res.json({
-          message: {
-            message: `${req.body.userName} Removed From Admin List`,
-            type: "success",
-          },
-        });}else{
-           res.json({
-             message: {
-               message: "You Cant Remove Yourself XD",
-               type: "failed",
-             },
-             data: {},
-           });
+        if (controllerAdmin.userName !== admin.userName) {
+          await AdminModel.deleteOne({ userName: req.body.userName });
+          res.json({
+            message: {
+              message: `${req.body.userName} Removed From Admin List`,
+              type: "success",
+            },
+          });
+        } else {
+          res.json({
+            message: {
+              message: "You Cant Remove Yourself XD",
+              type: "failed",
+            },
+            data: {},
+          });
         }
       } else {
         res.json({
