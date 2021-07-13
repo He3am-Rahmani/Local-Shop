@@ -1,7 +1,7 @@
 const DiscountModel = require("../models/DiscountModel");
 
 const checkDisCode = async (req, res, next) => {
-  if (req.body.key === process.env.API_KEY) {
+  if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     const Exist = await DiscountModel.findOne({ name: req.params.code });
 
     if (Exist) {
@@ -24,7 +24,7 @@ const checkDisCode = async (req, res, next) => {
   }
 };
 const getAllDis = async (req, res, next) => {
-  if (req.body.key === process.env.API_KEY) {
+  if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     const dises = await DiscountModel.find({});
     res.json({
       message: { message: "Everything alright", type: "success" },
@@ -41,7 +41,7 @@ const getAllDis = async (req, res, next) => {
 };
 
 const createDisCode = async (req, res, next) => {
-  if (req.body.key === process.env.API_KEY) {
+  if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     if (await DiscountModel.findOne({ name: req.body.name })) {
       res.json({ message: { message:'Operation Failure We Have an Active Discount Code With This Name' ,type:"failed"} });
     } else {
@@ -73,7 +73,7 @@ const createDisCode = async (req, res, next) => {
 };
 
 const delDis = async (req, res, next) => {
-  if (req.body.key === process.env.API_KEY) {
+  if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     const id = req.body.id;
 
     try {

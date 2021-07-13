@@ -24,7 +24,7 @@ const loginAdmin = async (req, res, next) => {
   }
 };
 const getAllAdmins = async (req, res, next) => {
-  if (req.body.key === process.env.API_KEY) {
+  if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     let Admins;
     Admins = await AdminModel.find({});
 
@@ -49,7 +49,7 @@ const getAdminById = async (req, res, next) => {
 };
 
 const deleteAdmin = async (req, res, next) => {
-  if (req.body.key === process.env.API_KEY) {
+  if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     const admin = await AdminModel.findOne({ userName: req.body.userName });
     const controllerAdmin = await AdminModel.findOne({
       userName: req.body.controllerAdmin,
@@ -99,7 +99,7 @@ const deleteAdmin = async (req, res, next) => {
 };
 
 const createAdmin = async (req, res, next) => {
-  if (req.body.key === process.env.API_KEY) {
+  if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     if (await AdminModel.findOne({ userName: req.body.userName })) {
       res.json({
         message: {

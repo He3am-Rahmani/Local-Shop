@@ -7,7 +7,7 @@ const createNewTocken = async (req, res, next) => {
   if (
     req.body.admin &&
     req.body.key &&
-    req.body.apiKey === process.env.API_KEY
+    req.body.apiKey === "WHO_THE_HELL_IS_NO1"
   ) {
     const NewTocken = new TockenModel({
       url: hasha(req.body.key) + Math.floor(Math.random().toString()) * 10000,
