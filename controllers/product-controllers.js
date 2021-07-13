@@ -97,7 +97,7 @@ const updateProduct = async (req, res, next) => {
 const getProduct = async (req, res, next) => {
   const product = await Products.findById(req.params.id);
 
-  res.json(product);
+  res.send(product);
 };
 
 exports.getAllProducts = getAllProducts;
