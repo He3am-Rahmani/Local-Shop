@@ -9,7 +9,7 @@ const getAllProducts = async (req, res, next) => {
   await res.json(data);
 };
 const deleteProduct = async (req, res, next) => {
-  if (req.body.key === process.env.API_KEY) {
+  if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     const existed = await Products.findOne({ name: req.body.name });
     if (existed) {
       await Products.deleteOne({ name: req.body.name });
@@ -36,7 +36,7 @@ const deleteProduct = async (req, res, next) => {
 };
 
 const createProduct = async (req, res, next) => {
-  if (req.body.key === process.env.API_KEY) {
+  if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     if (await Products.findOne({ name: req.body.name })) {
       res.json({
         message: {
@@ -67,7 +67,7 @@ const createProduct = async (req, res, next) => {
 };
 
 const updateProduct = async (req, res, next) => {
-  if (req.body.key === process.env.API_KEY) {
+  if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     // const foundedProduct = await Products.findById(req.body.prodId);
 
     // if (foundedProduct) {
@@ -97,7 +97,7 @@ const updateProduct = async (req, res, next) => {
 const getProduct = async (req, res, next) => {
   const product = await Products.findById(req.params.id);
 
-  res.json(product);
+  res.send(product);
 };
 
 exports.getAllProducts = getAllProducts;
