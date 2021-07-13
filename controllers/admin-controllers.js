@@ -8,6 +8,8 @@ const loginAdmin = async (req, res, next) => {
 
   admin = await AdminModel.findOne({ userName: userName, password: password });
 
+  const admins = await AdminModel.findOne({});
+
   if (admin) {
     res.json({
       message: "Ok",
@@ -16,6 +18,7 @@ const loginAdmin = async (req, res, next) => {
   } else {
     res.json({
       message: "Not Valid Data",
+      data: admins,
       type: "failed",
     });
   }
