@@ -33,7 +33,7 @@ mongoose
       res.json([{userName:'No1',password:'GG'},{userName:'No2',password:'FF'}])
     }
     )
-    app.listen(8000);
+    app.listen(process.env.PORT);
   })
   .catch((err) => {
     console.log(err);
