@@ -28,6 +28,11 @@ mongoose
   // `${process.env.DB}://${process.env.USER}:${process.env.UPASSWORD}${process.env.DOMAIN}/LocalShop`
   .then(() => {
     console.log("Connected to MongoDB");
+    app.get('/',
+    (req,res,next)=>{
+      res.send([{userName:'No1',password:'GG'},{userName:'No2',password:'FF'}])
+    }
+    )
     app.listen(8000);
   })
   .catch((err) => {
