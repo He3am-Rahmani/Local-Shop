@@ -59,7 +59,7 @@ const createComment = async (req, res, next) => {
     await NewComment.save();
 
     res.json({
-      message: { message: "Your Comment Submitted and After Confirmation Will Be Published", type: "success" },
+      message: { message: "Your Comment Submitted, After Confirmation Will Be Published", type: "success" },
     });
   } else {
     res.json({
