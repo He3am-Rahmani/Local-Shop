@@ -48,6 +48,7 @@ const createComment = async (req, res, next) => {
   if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     const NewComment = new Comments({
       author: req.body.author,
+      authorEmail: req.body.authorEmail,
       body: req.body.body,
       photoURL: req.body.photoURL,
       product: req.body.product,
@@ -58,7 +59,7 @@ const createComment = async (req, res, next) => {
     await NewComment.save();
 
     res.json({
-      message: { message: "Your Comment Submitted After Confirmation Will Be Published", type: "success" },
+      message: { message: "Your Comment Submitted and After Confirmation Will Be Published", type: "success" },
     });
   } else {
     res.json({

@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const Comments = new Schema({
   author: { type: String, required: true },
+  authorEmail: { type: String, required: true },
   body: { type: String, required: true },
   photoURL: { type: String },
   product: { type: String, required: true },
