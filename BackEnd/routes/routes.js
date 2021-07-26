@@ -51,7 +51,10 @@ router.post("/comment/add-reply", commentControllers.addReplyToComment);
 router.post("/comment/delete-reply", commentControllers.deleteReply);
 router.put("/comment/update-reply", commentControllers.setReplyVerified);
 router.post("/comments", commentControllers.getAllComments);
-router.post("/comment/get-specefic",commentControllers.getSpeceficProductAllComments);
+router.post(
+  "/comment/get-specefic",
+  commentControllers.getSpeceficProductAllComments
+);
 router.post("/comment/remove", commentControllers.deleteComment);
 router.post("/comment/create", commentControllers.createComment);
 router.put("/comment/update", commentControllers.updateComment);

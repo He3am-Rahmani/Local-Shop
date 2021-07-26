@@ -110,7 +110,12 @@ const addReplyToComment = async (req, res, next) => {
       replys: [...comment.replys, reply],
     });
 
-    res.json(comment.replys);
+    res.json({
+      message: {
+        type: "success",
+        message: "Your Reply Submitted, After Confirmatin Will Be Published",
+      },
+    });
   } else {
     res.json({
       message: {
@@ -139,7 +144,9 @@ const setReplyVerified = async (req, res, next) => {
       replys: comment.replys,
     });
 
-    res.json({ replys: comment.replys, reply: reply });
+    res.json({
+      message: { type: "success", message: "Reply Published Successfully" },
+    });
   } else {
     res.json({
       message: {
