@@ -14,6 +14,7 @@ const loginAdmin = async (req, res, next) => {
     res.json({
       message: "Ok",
       data: { role: admin.role, id: admin.id, userName: admin.userName },
+      type: "success",
     });
   } else {
     res.json({
@@ -115,6 +116,7 @@ const createAdmin = async (req, res, next) => {
         password: req.body.password,
         createdBy: req.body.createdBy,
         creatorRole: req.body.creatorRole,
+        creationDate: new Date().toLocaleString(),
       });
 
       await newAdmin.save();
