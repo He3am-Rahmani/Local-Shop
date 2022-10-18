@@ -15,7 +15,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(cors());
+app.use(cors());
 
 app.use("/api", Routes);
 
@@ -32,17 +32,13 @@ mongoose
       res.send("No1 Shop Api");
     });
     console.log(process.env.PORT);
-    const PORT = process.env.PORT || "8000";
-
-    app.listen(PORT);
-
-    // app.listen(process.env.PORT || 3000, "0.0.0.0", function () {
-    //   console.log(
-    //     "Express server listening on port %d in %s mode",
-    //     this.address().port,
-    //     app.settings.env
-    //   );
-    // });
+    app.listen(process.env.PORT || 3000, "0.0.0.0", function () {
+      console.log(
+        "Express server listening on port %d in %s mode",
+        this.address().port,
+        app.settings.env
+      );
+    });
   })
   .catch((err) => {
     console.log(err);
