@@ -21,7 +21,7 @@ const deleteComment = async (req, res, next) => {
     await Comments.findByIdAndDelete(req.body.id);
     const comment = await Comments.findById(req.body.id);
 
-    const replyers = comment?.replys.map((item) => item.auhorId);
+    const replyers = comment.replys.map((item) => item.auhorId);
 
     res.json({
       message: {
