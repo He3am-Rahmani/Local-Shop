@@ -8,6 +8,7 @@ const supportControllers = require("../controllers/support-controllers");
 const discountControllers = require("../controllers/discount-controllers");
 const tockenControllers = require("../controllers/tocken-controllers");
 const commentControllers = require("../controllers/comment-controllers");
+const userControllers = require("../controllers/user-controllers");
 
 /// Products
 
@@ -58,5 +59,13 @@ router.post(
 router.post("/comment/remove", commentControllers.deleteComment);
 router.post("/comment/create", commentControllers.createComment);
 router.put("/comment/update", commentControllers.updateComment);
+router.post("/comment/user-comments", commentControllers.getUserComments);
+
+/// Users
+
+router.post("/signup", userControllers.createUser);
+router.post("/login", userControllers.userLogin);
+router.post("/add-product-to-cart", userControllers.addProductToUserCart);
+router.post("/update-profile", userControllers.updateUserProfile);
 
 module.exports = router;
