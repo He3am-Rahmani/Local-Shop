@@ -1,1 +1,1 @@
-web gunicorn app.js:node app.js
+web: npm start
