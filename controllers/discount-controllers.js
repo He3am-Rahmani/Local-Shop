@@ -22,6 +22,7 @@ const checkDisCode = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 const getAllDis = async (req, res, next) => {
   if (req.body.key === "WHO_THE_HELL_IS_NO1") {
@@ -38,28 +39,34 @@ const getAllDis = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const createDisCode = async (req, res, next) => {
   if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     if (await DiscountModel.findOne({ name: req.body.name })) {
-      res.json({ message: { message:'Operation Failure We Have an Active Discount Code With This Name' ,type:"failed"} });
+      res.json({
+        message: {
+          message:
+            "Operation Failure We Have an Active Discount Code With This Name",
+          type: "failed",
+        },
+      });
     } else {
       const NewDiscountCode = new DiscountModel({
-        key:req.body.key,
+        key: req.body.key,
         name: req.body.name,
         value: req.body.value,
       });
 
-      
       await NewDiscountCode.save();
-      const dises = await DiscountModel.find({})
+      const dises = await DiscountModel.find({});
       res.json({
         message: {
           message: "Discount Code Created You Can Publish It Now",
           type: "success",
         },
-        data:dises
+        data: dises,
       });
     }
   } else {
@@ -70,6 +77,7 @@ const createDisCode = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const delDis = async (req, res, next) => {
@@ -96,6 +104,7 @@ const delDis = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 exports.createDisCode = createDisCode;

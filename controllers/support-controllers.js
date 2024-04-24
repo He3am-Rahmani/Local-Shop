@@ -1,4 +1,4 @@
-const SupportTicketModels = require("../models/TicketModels")
+const SupportTicketModels = require("../models/TicketModels");
 
 const getSupportTickets = async (req, res, next) => {
   if (req.body.key === "WHO_THE_HELL_IS_NO1") {
@@ -11,14 +11,14 @@ const getSupportTickets = async (req, res, next) => {
   } else {
     res.json({ message: { message: "failed", type: "failed" } });
   }
+  next();
 };
 const createSupportTicket = async (req, res, next) => {
   if (req.body.key === "WHO_THE_HELL_IS_NO1") {
     if (await SupportTicketModels.findOne({ email: req.body.email })) {
       res.json({
         message: {
-          message:
-            "Each Email Can Submit Only 1 Request",
+          message: "Each Email Can Submit Only 1 Request",
           type: "failed",
         },
       });
@@ -30,8 +30,10 @@ const createSupportTicket = async (req, res, next) => {
         message: req.body.message,
       });
 
-     await newSupportTicket.save();
-      res.json({ message: { message: "SupportTicket Created", type: "success" } });
+      await newSupportTicket.save();
+      res.json({
+        message: { message: "SupportTicket Created", type: "success" },
+      });
     }
   } else {
     res.json({
@@ -41,6 +43,7 @@ const createSupportTicket = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 const deleteSupportTicket = async (req, res, next) => {
   if (req.body.key === "WHO_THE_HELL_IS_NO1") {
@@ -61,6 +64,7 @@ const deleteSupportTicket = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 exports.getSupportTickets = getSupportTickets;

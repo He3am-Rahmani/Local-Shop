@@ -15,6 +15,7 @@ const getAllComments = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 const deleteComment = async (req, res, next) => {
   if (req.body.key === "WHO_THE_HELL_IS_NO1") {
@@ -40,6 +41,7 @@ const deleteComment = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const updateComment = async (req, res, next) => {
@@ -80,6 +82,7 @@ const updateComment = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const createComment = async (req, res, next) => {
@@ -99,7 +102,7 @@ const createComment = async (req, res, next) => {
     const user = await UserModel.findById(req.body.authorId);
     const comments = [...user.comments, newComment];
 
-    await UserModel.findOneAndUpdate(req.body.authorId, {
+    await UserModel.findByIdAndUpdate(req.body.authorId, {
       comments: [...user.comments, newComment],
     });
     await UserModel.findById(req.body.authorId);
@@ -121,6 +124,7 @@ const createComment = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const getSpeceficProductAllComments = async (req, res, next) => {
@@ -138,6 +142,7 @@ const getSpeceficProductAllComments = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 const getUserComments = async (req, res, next) => {
   if (req.body.key === "WHO_THE_HELL_IS_NO1") {
@@ -165,6 +170,7 @@ const getUserComments = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const addReplyToComment = async (req, res, next) => {
@@ -239,6 +245,7 @@ const addReplyToComment = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const setReplyVerified = async (req, res, next) => {
@@ -331,6 +338,7 @@ const setReplyVerified = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const deleteReply = async (req, res, next) => {
@@ -394,6 +402,7 @@ const deleteReply = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 exports.deleteReply = deleteReply;
