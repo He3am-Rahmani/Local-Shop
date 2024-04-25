@@ -22,6 +22,7 @@ const createNewTocken = async (req, res, next) => {
   } else {
     res.json({ message: { message: "Not Valid Request", type: "failed" } });
   }
+  next();
 };
 
 const getTockenByUrl = async (req, res, next) => {
@@ -63,6 +64,7 @@ const getTockenByUrl = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const setTockenExpire = async (req, res, next) => {
@@ -71,10 +73,13 @@ const setTockenExpire = async (req, res, next) => {
       { url: req.params.url },
       { isValid: false, usedIn: Date.now().toString() }
     );
-    res.json({ message: { message: "Tocken expired successfully", type: "success" } });
+    res.json({
+      message: { message: "Tocken expired successfully", type: "success" },
+    });
   } else {
     res.json({ message: { message: "Failed", type: "failed" } });
   }
+  next();
 };
 
 exports.setTockenExpire = setTockenExpire;

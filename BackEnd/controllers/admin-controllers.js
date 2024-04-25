@@ -23,6 +23,7 @@ const loginAdmin = async (req, res, next) => {
       type: "failed",
     });
   }
+  next()
 };
 const getAllAdmins = async (req, res, next) => {
   if (req.body.key === "WHO_THE_HELL_IS_NO1") {
@@ -47,6 +48,8 @@ const getAdminById = async (req, res, next) => {
       message: { message: "Id Is Not Correct", type: "failed" },
     });
   }
+  next()
+
 };
 
 const deleteAdmin = async (req, res, next) => {
@@ -97,6 +100,8 @@ const deleteAdmin = async (req, res, next) => {
       },
     });
   }
+  next();
+
 };
 
 const createAdmin = async (req, res, next) => {
@@ -130,6 +135,8 @@ const createAdmin = async (req, res, next) => {
       },
     });
   }
+  next();
+
 };
 
 exports.getAdmin = loginAdmin;

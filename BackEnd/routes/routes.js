@@ -67,5 +67,5 @@ router.post("/signup", userControllers.createUser);
 router.post("/login", userControllers.userLogin);
 router.post("/add-product-to-cart", userControllers.addProductToUserCart);
 router.post("/update-profile", userControllers.updateUserProfile);
-
+router.post('/user/forgot-password',userControllers.userForgotPassword)
 module.exports = router;

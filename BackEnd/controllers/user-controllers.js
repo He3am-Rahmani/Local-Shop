@@ -1,3 +1,4 @@
+const nodemailer = require("nodemailer");
 const UserModel = require("../models/UserModels");
 
 const createUser = async (req, res, next) => {
@@ -18,16 +19,19 @@ const createUser = async (req, res, next) => {
         },
       });
     } else {
+      const date = new Date();
+      const nowDate = date[Symbol.toPrimitive]("string");
       const newUser = new UserModel({
         displayName: req.body.displayName,
         email: req.body.email,
         userName: req.body.userName,
         password: req.body.password,
-        joinDate: new Date().toLocaleString(),
+        joinDate: nowDate,
         haveContactToken: true,
         photoURL: "",
         comments: [],
         cartItems: [],
+        lastUpdate: undefined,
       });
 
       await newUser.save();
@@ -43,6 +47,7 @@ const createUser = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const userLogin = async (req, res, next) => {
@@ -88,6 +93,7 @@ const userLogin = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const addProductToUserCart = async (req, res, next) => {
@@ -130,6 +136,7 @@ const addProductToUserCart = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const updateUserProfile = async (req, res, next) => {
@@ -167,6 +174,8 @@ const updateUserProfile = async (req, res, next) => {
           },
         });
       } else {
+        const date = new Date();
+        const updateDate = date[Symbol.toPrimitive]("string");
         await UserModel.findByIdAndUpdate(user._id, {
           photoURL: req.body.photoURL,
           displayName: req.body.displayName,
@@ -174,6 +183,7 @@ const updateUserProfile = async (req, res, next) => {
           email: req.body.email,
           password:
             req.body.password === "" ? user.password : req.body.password,
+          lastUpdate: updateDate,
         });
 
         const updatedUser = await UserModel.findById(user._id);
@@ -197,9 +207,88 @@ const updateUserProfile = async (req, res, next) => {
       },
     });
   }
+  next();
+};
+
+const userForgotPassword = async (req, res, next) => {
+  if (req.body.key === "WHO_THE_HELL_IS_NO1") {
+    const userEmail = req.body.userEmail;
+    const resetType = req.body.resetType;
+
+    if (resetType === "email" || resetType === undefined || null) {
+      var user = await UserModel.findOne({ email: userEmail });
+    } else {
+      var user = await UserModel.findOne({ userName: userEmail });
+    }
+    if (user === null || undefined) {
+      res.json({
+        message: {
+          type: "failed",
+          message:
+            resetType === "email"
+              ? "Sorry we couldn't find an Account Linked to This Email Address You can Create your account Using this Link Below"
+              : "Sorry we couldn't find an Account With this Username You can Create your account Using this Link Below",
+        },
+      });
+    } else {
+      if (user)
+        var transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            type: "OAuth2",
+            user: process.env.EMAIL_USERNAME,
+            pass: process.env.EMAIL_PASSWORD,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            refreshToken: process.env.REFRESH_TOKEN,
+            accessToken: process.env.ACCESS_TOKEN,
+          },
+        });
+
+      var mailOptions = {
+        from: "No1-Shop-Support@no1Shop.com",
+        to: user.email,
+        subject: "Forget Password",
+        html: `<h1 style='width:100%;text-align:center;'>Hello Dear No1-Shop User</h1></br> 
+       <p style='width:100%;text-align:center;'>We send you Your password Please Be Careful to not Forget it Again</p></br>
+       <h2 style='width:100%;text-align:center;'>${user.password}</h2> 
+       <p style='width:100%;text-align:left;'>Your No1-Shop</p>
+        `,
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          res.json({
+            message: {
+              message: `Operation Failure There Is Something Wrong during sending Email`,
+              type: "failed",
+            },
+          });
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
+      res.json({
+        message: {
+          message: "Confirmed! Please Check your Inbox for Next Steps",
+          type: "success",
+        },
+      });
+      console.log("we send email end process Check");
+    }
+    next();
+  } else {
+    res.json({
+      message: {
+        message: `Operation Failure There Is Something Wrong `,
+        type: "failed",
+      },
+    });
+  }
 };
 
 exports.createUser = createUser;
+exports.userForgotPassword = userForgotPassword;
 exports.addProductToUserCart = addProductToUserCart;
 exports.userLogin = userLogin;
 exports.updateUserProfile = updateUserProfile;

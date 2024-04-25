@@ -33,6 +33,7 @@ const deleteProduct = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const createProduct = async (req, res, next) => {
@@ -64,6 +65,7 @@ const createProduct = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const updateProduct = async (req, res, next) => {
@@ -92,12 +94,14 @@ const updateProduct = async (req, res, next) => {
       },
     });
   }
+  next();
 };
 
 const getProduct = async (req, res, next) => {
   const product = await Products.findById(req.params.id);
 
   res.send(product);
+  next();
 };
 
 exports.getAllProducts = getAllProducts;
